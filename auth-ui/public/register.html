@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script src="register.js"></script>
+	<style>
+		.errorLabel {color: red;}
+	</style>
+</head>
+<body>
+	<form id="details">
+		<label for="name">Name:</label><br>
+		<label for="name" id = "emptyNameError" class="errorLabel" hidden=true>Name must not be empty<br></label>
+		<input type="text" id="name" name="name"><br>
+		<label for="email">Email:</label><br>
+		<label for="email" id = "emptyEmailError" class="errorLabel" hidden=true>Email must not be empty<br></label>
+		<input type="text" id="email" name="email"><br>
+		<label for="pw">Password:</label><br>
+		<label for="pw" id = "emptyPasswordError" class="errorLabel" hidden=true>Password must not be empty<br></label>
+		<input type="password" id="pw" name="pw"><br>
+		<label for="confirmpw">Confirm password:</label><br>
+		<label for="name" id = "pwMismatchError" class="errorLabel" hidden=true>Passwords do not match<br></label>
+		<input type="password" id="confirmpw" name="confirmpw">
+		
+	</form>
+	<button onClick="submit()">
+	Submit
+	</button>
+</body>
+</html>

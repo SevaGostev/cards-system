@@ -8,3 +8,6 @@
  */
 
 rootProject.name = 'cards-system'
+include 'backend'
+include 'auth-ui'
+include 'auth-backend'
