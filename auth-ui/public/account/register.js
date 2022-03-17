@@ -1,4 +1,4 @@
-const createUserEndpoint = 'http://localhost:8080/auth/status';
+const createUserEndpoint = '/auth/registerB';
 
 
 function submit()
@@ -17,13 +17,19 @@ function submit()
 
 async function send(data, destination)
 {
-	//const str = JSON.stringify(data);
+	const str = JSON.stringify(data);
 	
-	//const response = await fetch(destination, {method: 'POST', body: str});
-	const response = await fetch(destination, {method: 'GET'});
+	const response = await fetch(destination, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: str
+		});
 	const resjson = await response.json();
 	
 	alert(resjson.message);
+	return resjson;
 }
 
 function collectData()
@@ -64,6 +70,12 @@ function validateData(data)
 		success = false;
 	}
 	
+	if(!validateEmail(data.email))
+	{
+		document.getElementById("invalidEmailError").hidden = false;
+		success = false;
+	}
+	
 	if(data.pw.trim() == "")
 	{
 		document.getElementById("emptyPasswordError").hidden = false;
@@ -77,4 +89,11 @@ function validateData(data)
 	}
 	
 	return success;
+}
+
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+function validateEmail(email)
+{
+	return EMAIL_REGEX.test(email);
 }

@@ -1,4 +1,4 @@
-package com.gmail.vmgostev.cardssystem;
+package com.gmail.vmgostev.cardssystem.auth;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
