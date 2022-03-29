@@ -1,13 +1,15 @@
 package com.gmail.vmgostev.cardssystem.auth;
 
 import com.gmail.vmgostev.cardssystem.auth.model.AccountInfo;
-import com.gmail.vmgostev.cardssystem.auth.rest.OAuthLoginResult;
+import com.gmail.vmgostev.cardssystem.auth.rest.OAuthGetIdentityResult;
 
 public interface AuthService {
 
-	long createAccount(String name, String email, String password, boolean sendActivationEmail) throws AuthException;
+	long createAccount(String name, String email, boolean sendActivationEmail) throws AuthException;
 	
-	long createAccountWithProvider(String name, String email, String providerName, boolean sendActivationEmail) throws AuthException;
+	void addPasswordLoginMethod(long id, String password) throws AuthException;
+	
+	void addOAuthProviderLoginMethod(long id, String providerName, String providerSpecificID) throws AuthException;
 	
 	void sendActivationKey(long id) throws AuthException;
 	
@@ -22,7 +24,10 @@ public interface AuthService {
 	AccountInfo getAccountInfo(long id) throws AuthException;
 	
 	AccountInfo getAccountInfo(String email) throws AuthException;
-
-	OAuthLoginResult loginWithOAuth(String token, String provider);
 	
+	AccountInfo getAccountInfo(String providerName, String providerSpecificID) throws AuthException;
+
+	OAuthGetIdentityResult getIdentityWithOAuth(String token, String providerName);
+	
+	String login(long id);
 }

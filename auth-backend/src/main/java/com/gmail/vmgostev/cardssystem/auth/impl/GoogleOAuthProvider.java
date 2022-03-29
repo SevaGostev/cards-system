@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.gmail.vmgostev.cardssystem.auth.AuthService;
 import com.gmail.vmgostev.cardssystem.auth.OAuthProvider;
 import com.gmail.vmgostev.cardssystem.auth.model.AccountInfo;
-import com.gmail.vmgostev.cardssystem.auth.rest.OAuthLoginResult;
+import com.gmail.vmgostev.cardssystem.auth.rest.OAuthGetIdentityResult;
 
 @Component
 public class GoogleOAuthProvider implements OAuthProvider {
@@ -40,9 +40,9 @@ public class GoogleOAuthProvider implements OAuthProvider {
 	private AuthService authService;
 	
 	@Override
-	public OAuthLoginResult login(String token) {
+	public OAuthGetIdentityResult getIdentity(String token) {
 		
-		OAuthLoginResult result;
+		String errorMessage = "";
 		
 		GoogleResponse response = getAccessData(token);
 		
@@ -61,27 +61,20 @@ public class GoogleOAuthProvider implements OAuthProvider {
 			String googleID = payloadNode.get("sub").asText();
 			String email = payloadNode.get("email").asText();
 			
-			AccountInfo account = authService.getAccountInfo(email);
+			JsonNode nameNode = payloadNode.get("name");
+			String name = nameNode != null ? nameNode.asText() : "";
 			
-			if(account == null) {
-				
-				JsonNode nameNode = payloadNode.get("name");
-				authService.createAccountWithProvider(nameNode == null ? "" : nameNode.asText(), email, providerName, true);
-				result = new OAuthLoginResult(OAuthLoginResult.OAuthLoginResultStatus.createdAccount, "");
-			}
-			else {
-				result = new OAuthLoginResult(OAuthLoginResult.OAuthLoginResultStatus.loggedIn, "");
-			}
+			return new OAuthGetIdentityResult(providerName, googleID, name, email, true, "");
 			
 		}
 		catch (JsonMappingException e) {
-			result = new OAuthLoginResult(OAuthLoginResult.OAuthLoginResultStatus.error, "Could not parse ID token");
+			errorMessage = "Could not parse ID token";
 		}
 		catch (JsonProcessingException e) {
-			result = new OAuthLoginResult(OAuthLoginResult.OAuthLoginResultStatus.error, "Could not parse ID token");
+			errorMessage = "Could not parse ID token";
 		}
 		
-		return result;
+		return new OAuthGetIdentityResult(null, null, null, null, false, errorMessage);
 	}
 	
 	private GoogleResponse getAccessData(String token) {
