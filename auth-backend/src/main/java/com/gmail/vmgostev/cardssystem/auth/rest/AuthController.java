@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.gmail.vmgostev.cardssystem.account.AccountInfo;
 import com.gmail.vmgostev.cardssystem.auth.AuthService;
-import com.gmail.vmgostev.cardssystem.auth.model.AccountInfo;
 import com.gmail.vmgostev.cardssystem.session.SessionData;
 import com.gmail.vmgostev.cardssystem.session.SessionService;
 

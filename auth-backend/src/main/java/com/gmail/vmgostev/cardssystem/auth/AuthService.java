@@ -1,6 +1,6 @@
 package com.gmail.vmgostev.cardssystem.auth;
 
-import com.gmail.vmgostev.cardssystem.auth.model.AccountInfo;
+import com.gmail.vmgostev.cardssystem.account.AccountInfo;
 import com.gmail.vmgostev.cardssystem.auth.rest.OAuthGetIdentityResult;
 
 public interface AuthService {

@@ -20,9 +20,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.gmail.vmgostev.cardssystem.account.AccountInfo;
 import com.gmail.vmgostev.cardssystem.auth.AuthService;
 import com.gmail.vmgostev.cardssystem.auth.OAuthProvider;
-import com.gmail.vmgostev.cardssystem.auth.model.AccountInfo;
 import com.gmail.vmgostev.cardssystem.auth.rest.OAuthGetIdentityResult;
 
 @Component
